@@ -59,24 +59,18 @@ public class EasyControlServer extends JFrame{
 	}
 	
 	private void execAction(MyAction act){
-		if(!(act.isMouse)){
-			if(act.act == Constant.ACTION_DOWN) robot.keyPress(act.btn);
-			else if(act.act == Constant.ACTION_UP) robot.keyRelease(act.btn);
-		}
-		else{
-			if(act.act == Constant.ACTION_MOVE){
+		if(act.act == Constant.ACTION_KEY_DOWN) robot.keyPress(act.btn);
+		else if(act.act == Constant.ACTION_KEY_UP) robot.keyRelease(act.btn);
+		else if(act.act == Constant.ACTION_MOVE){
 				Point point = MouseInfo.getPointerInfo().getLocation();
 				int oldX = point.x;
 				int oldY = point.y;
 				robot.mouseMove(oldX+act.distX, oldY+act.distY);
-			}
-			else if(act.act == Constant.ACTION_DOWN) robot.mousePress(act.btn);
-			else if(act.act == Constant.ACTION_UP) robot.mouseRelease(act.btn);
-			else if(act.act == Constant.ACTION_ROLL){
-				if(act.btn == Constant.ROLL_UP) robot.mouseWheel(-1);
-				else if(act.btn == Constant.ROLL_DOWN) robot.mouseWheel(1);
-			}
 		}
+		else if(act.act == Constant.ACTION_MOUSE_DOWN) robot.mousePress(act.btn);
+		else if(act.act == Constant.ACTION_MOUSE_UP) robot.mouseRelease(act.btn);
+		else if(act.act == Constant.ACTION_ROLL_UP) robot.mouseWheel(-1);
+		else if(act.act == Constant.ACTION_ROLL_DOWN) robot.mouseWheel(1);
 	}
 	
 	class RunButtonListener implements ActionListener{
